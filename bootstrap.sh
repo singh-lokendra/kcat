@@ -11,7 +11,7 @@
 
 set -o errexit -o nounset -o pipefail
 
-: "${LIBRDKAFKA_VERSION:=v1.8.2}"
+: "${LIBRDKAFKA_VERSION:=v1.8.2.1}"
 
 lrk_install_deps="--install-deps"
 lrk_static="--enable-static"
@@ -135,7 +135,7 @@ else
 fi
 export PKG_CONFIG_PATH="$DEST/lib/pkgconfig"
 
-github_download "edenhill/librdkafka" "$LIBRDKAFKA_VERSION" "librdkafka"
+github_download "singh-lokendra/librdkafka" "$LIBRDKAFKA_VERSION" "librdkafka"
 build librdkafka "([ -f config.h ] || ./configure --prefix=$DEST $lrk_install_deps $lrk_static --disable-lz4-ext) && make -j && make install" || (echo "Failed to build librdkafka: bootstrap failed" ; false)
 
 github_download "edenhill/yajl" "edenhill" "libyajl"
